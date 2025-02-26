@@ -1,3 +1,4 @@
+import { navigate } from "expo-router/build/global-state/routing";
 import { Alert } from "react-native";
 
 export async function handleLogin(userName: string, userPass: string) {
@@ -20,6 +21,8 @@ export async function handleLogin(userName: string, userPass: string) {
         console.log(response);
 
         const data = await response.json();
+
+        console.log(data);
 
         if (response.ok) {
             Alert.alert("Login Successful", `Welcome, ${data.current_user.name}!`);

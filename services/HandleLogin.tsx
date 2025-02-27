@@ -1,7 +1,9 @@
-import { navigate } from "expo-router/build/global-state/routing";
 import { Alert } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function handleLogin(userName: string, userPass: string) {
+
+export async function handleLogin(userName: string, userPass: string, navigation: any) {
+
     if (!userName || !userPass) {
         Alert.alert("Error", "Please enter both username and password.");
         return;
@@ -18,14 +20,12 @@ export async function handleLogin(userName: string, userPass: string) {
             credentials: "include"
         });
 
-        console.log(response);
-
         const data = await response.json();
-
-        console.log(data);
 
         if (response.ok) {
             Alert.alert("Login Successful", `Welcome, ${data.current_user.name}!`);
+            console.log(data);
+            AsyncStorage.setItem("logout_token", data.logout_token);
         } else {
             Alert.alert("Login Failed", data.message || "Invalid credentials");
         }

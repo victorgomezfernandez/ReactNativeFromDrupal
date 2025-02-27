@@ -5,7 +5,7 @@ export default function Home() {
   const navigation = useNavigation();
   return (
     <>
-      <Menu/>
+      <Menu isScrolled={false}/>
       <Login />
     </>
   )

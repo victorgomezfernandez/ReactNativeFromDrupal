@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Logout from './Logout';
 
-export default function Menu() {
+export default function Menu({ isScrolled }: { isScrolled: boolean }) {
   const navigation: any = useNavigation();
-
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -25,7 +24,7 @@ export default function Menu() {
     <>
       <TouchableOpacity onPress={toggleMenu}>
         <Image
-          source={require("../assets/images/icons/menu.png")}
+          source={isScrolled ? require("../assets/images/icons/menuwhite.png") : require("../assets/images/icons/menu.png")}
           style={styles.burgerIcon}
         />
       </TouchableOpacity>
@@ -37,7 +36,7 @@ export default function Menu() {
       >
         <TouchableOpacity onPress={closeMenu}>
           <Image
-            source={require("../assets/images/icons/x.png")}
+            source={require("../assets/images/icons/xwhite.png")}
             style={styles.xIcon}
           />
         </TouchableOpacity>
@@ -53,7 +52,7 @@ export default function Menu() {
         <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
           <Text style={styles.menuText}>About me</Text>
         </TouchableOpacity>
-        <Logout />
+        <Logout/>
       </View>
     </>
   );
@@ -61,10 +60,10 @@ export default function Menu() {
 
 const styles = StyleSheet.create({
   burgerMenu: {
-    backgroundColor: "#dddd",
-    width: '50%',
+    backgroundColor: "black",
+    width: '80%',
     padding: 5,
-    height: '100%',
+    flex: 1,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     transitionDuration: "0.3s",
     display: "flex",
     flexDirection: "column",
-    gap: 15
+    gap: 15,
   },
   burgerIcon: {
     width: 40,
@@ -84,8 +83,12 @@ const styles = StyleSheet.create({
   xIcon: {
     width: 40,
     height: 40,
+    resizeMode: "contain",
+    marginLeft: 10,
+    marginTop: 10
   },
   menuText: {
-    fontSize: 30
+    fontSize: 30,
+    color: "white"
   }
 });

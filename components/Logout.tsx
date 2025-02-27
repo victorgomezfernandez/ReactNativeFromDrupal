@@ -13,6 +13,6 @@ export default function Logout() {
 
 const styles = StyleSheet.create({
   logoutButton: {
-    width: "100%"
+    width: "100%",
   }
 });

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
+import CookieManager from '@react-native-cookies/cookies';
 
 export async function handleLogout(navigation: any) {
 
@@ -21,7 +22,7 @@ export async function handleLogout(navigation: any) {
 
         if (response.ok) {
             Alert.alert("Logout Successful");
-            
+            await AsyncStorage.clear();
             navigation.navigate("Login"); 
         } else {
             Alert.alert("Logout Failed", data.message);

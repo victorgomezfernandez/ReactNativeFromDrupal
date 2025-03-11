@@ -23,9 +23,12 @@ export async function handleLogin(userName: string, userPass: string, navigation
         const data = await response.json();
 
         if (response.ok) {
-            Alert.alert("Login Successful", `Welcome, ${data.current_user.name}!`);
-            console.log(data);
-            AsyncStorage.setItem("logout_token", data.logout_token);
+            const userName = data.current_user?.name || "Unknown User";
+            Alert.alert("Login Successful", `Welcome, ${userName}!`);
+            await AsyncStorage.setItem("logout_token", data.logout_token);
+            await AsyncStorage.setItem("user_name", userName);
+            await AsyncStorage.setItem("csrf_token", data.csrf_token);
+            navigation.replace(navigation.getState().routes[navigation.getState().index].name);
         } else {
             Alert.alert("Login Failed", data.message || "Invalid credentials");
         }

@@ -3,9 +3,9 @@ import Menu from "./Menu";
 
 export default function Header({ section, isScrolled }: { section: string; isScrolled: boolean }) {
   return (
-    <View style={[styles.headerContent, isScrolled && styles.scrolledHeader]}>
-      <Menu isScrolled={isScrolled}/>
-      <Text style={[styles.headerText, isScrolled && styles.scrolledText]}>{section}</Text>
+    <View style={styles.headerContent}>
+      <Menu isScrolled={isScrolled} />
+      <Text style={styles.headerText}>{section}</Text>
     </View>
   );
 }
@@ -14,19 +14,17 @@ const styles = StyleSheet.create({
   headerContent: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
-    backgroundColor: "#f0f0f0",
-  },
-  scrolledHeader: {
-    backgroundColor: "#000",
+    padding: 15,
+    backgroundColor: "#1e1e1e",
+    borderBottomWidth: 2,
+    borderBottomColor: "#fcba03",
+    elevation: 5,
+    zIndex: 1
   },
   headerText: {
-    fontSize: 25,
-    marginLeft: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#000",
-  },
-  scrolledText: {
-    color: "#fff",
+    color: "#fcba03",
+    marginLeft: 15,
   },
 });

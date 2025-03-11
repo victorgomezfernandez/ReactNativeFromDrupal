@@ -1,7 +1,7 @@
 import { handleLogout } from "@/services/HandleLogout";
 import { Button, StyleSheet, View } from "react-native";
 
-export default function Logout() {
+export default function Logout(navigation: any) {
   return (
     <>
       <View style={styles.logoutButton}>

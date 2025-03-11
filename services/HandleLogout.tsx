@@ -18,15 +18,14 @@ export async function handleLogout(navigation: any) {
             credentials: "include"
         });
 
-        const data = await response.json();
-
         if (response.ok) {
             Alert.alert("Logout Successful");
             await AsyncStorage.clear();
-            navigation.navigate("Login"); 
+            navigation.replace(navigation.getState().routes[navigation.getState().index].name);
         } else {
-            Alert.alert("Logout Failed", data.message);
+            Alert.alert("Logout Failed");
         }
+
     } catch (error) {
         console.error(error);
         Alert.alert("Error", "Network request failed.");

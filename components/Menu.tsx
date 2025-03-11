@@ -1,18 +1,45 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Button, TextInput, Animated } from 'react-native';
 import Logout from './Logout';
+import { handleLogout } from '@/services/HandleLogout';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { handleLogin } from '@/services/HandleLogin';
 
 export default function Menu({ isScrolled }: { isScrolled: boolean }) {
   const navigation: any = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [inputUser, setInputUser] = useState("");
+  const [inputPass, setInputPass] = useState("");
+  const menuAnim = useState(new Animated.Value(-300))[0];
+
+  useEffect(() => {
+    const getUser = async () => {
+      const storedUser = await AsyncStorage.getItem("user_name");
+      setUserName(storedUser);
+    };
+    getUser();
+  }, []);
 
   const toggleMenu = () => {
-    setMenuVisible(true);
+    setMenuVisible(!menuVisible);
+
+    Animated.timing(menuAnim, {
+      toValue: menuVisible ? -300 : 0, 
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   };
 
+  // Función para cerrar el menú
   const closeMenu = () => {
     setMenuVisible(false);
+    Animated.timing(menuAnim, {
+      toValue: -300,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   };
 
   const navigateTo = (screen: string) => {
@@ -24,14 +51,15 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
     <>
       <TouchableOpacity onPress={toggleMenu}>
         <Image
-          source={isScrolled ? require("../assets/images/icons/menuwhite.png") : require("../assets/images/icons/menu.png")}
+          source={require("../assets/images/icons/menuwhite.png")}
           style={styles.burgerIcon}
         />
       </TouchableOpacity>
-      <View
+
+      <Animated.View
         style={[
           styles.burgerMenu,
-          { transform: [{ translateX: menuVisible ? 0 : -1000 }] },
+          { transform: [{ translateX: menuAnim }] },
         ]}
       >
         <TouchableOpacity onPress={closeMenu}>
@@ -41,57 +69,108 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Home")}>
-          <Text style={styles.menuText}>Home</Text>
+          <Text style={styles.menuText}>HOME</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Frameworks")}>
-          <Text style={styles.menuText}>Frameworks</Text>
+          <Text style={styles.menuText}>FRAMEWORKS</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Languages")}>
-          <Text style={styles.menuText}>Languages</Text>
+          <Text style={styles.menuText}>LANGUAGES</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Databases")}>
-          <Text style={styles.menuText}>Databases</Text>
+          <Text style={styles.menuText}>DATABASES</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
-          <Text style={styles.menuText}>About me</Text>
+          <Text style={styles.menuText}>ABOUT ME</Text>
         </TouchableOpacity>
-        <Logout/>
-      </View>
+        <TouchableOpacity onPress={() => navigateTo("Requests")}>
+          <Text style={styles.menuText}>REQUESTS</Text>
+        </TouchableOpacity>
+        {userName ? (
+          <>
+            <Text style={styles.menuText}>Logged as {userName}</Text>
+            <Button title="Log out" onPress={() => handleLogout(navigation)} />
+          </>
+        ) : (
+          <>
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              placeholderTextColor="gray"
+              value={inputUser}
+              onChangeText={setInputUser}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              placeholderTextColor="gray"
+              secureTextEntry
+              value={inputPass}
+              onChangeText={setInputPass}
+            />
+            <TouchableOpacity onPress={() => handleLogin(inputUser, inputPass, navigation)}>
+              <Text style={styles.button}>LOG IN</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </Animated.View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   burgerMenu: {
-    backgroundColor: "black",
+    backgroundColor: "#1e1e1e",
     width: '80%',
-    padding: 5,
+    padding: 10,
     flex: 1,
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 100,
-    transitionDuration: "0.3s",
+    zIndex: 1,
     display: "flex",
     flexDirection: "column",
     gap: 15,
+    borderBottomRightRadius: 12,
+    borderBottomColor: "#fcba03",
+    borderRightColor: "#fcba03",
+    borderWidth: 1
   },
   burgerIcon: {
     width: 40,
     height: 40,
     marginLeft: 5,
     marginTop: 5,
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   xIcon: {
     width: 40,
     height: 40,
     resizeMode: "contain",
     marginLeft: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   menuText: {
     fontSize: 30,
-    color: "white"
-  }
+    color: "#fcba03",
+  },
+  input: {
+    backgroundColor: "white",
+    color: "black",
+    width: "90%",
+    marginBottom: 10,
+    padding: 8,
+    borderRadius: 5,
+  },
+  button: {
+    backgroundColor: "#fcba03",
+    textAlign: "center",
+    fontSize: 20,
+    padding: 5,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "black",
+    alignSelf: 'flex-start',
+    width: "90%",
+  },
 });

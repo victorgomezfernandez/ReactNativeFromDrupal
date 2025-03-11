@@ -1,14 +1,20 @@
 import Header from "@/components/Header";
+import Request from "@/components/Request";
 import { getAllRequests } from "@/services/RequestsService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
+import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 
 interface RequestType {
-  title: string;
-  body: string;
+  field_title: string;
+  field_body: string;
 }
 
-export function Requests() {
+export default function Requests() {
+  const navigation: any = useNavigation();
   const [requests, setRequests] = useState<RequestType[]>([]);
+  const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -17,11 +23,78 @@ export function Requests() {
         setRequests(data);
       }
     };
+
+    const fetchUserName = async () => {
+      const storedUser = await AsyncStorage.getItem("user_name");
+      setUserName(storedUser);
+    };
+
+    fetchRequests();
+    fetchUserName();
   }, []);
+
+  const navigateTo = (screen: string) => {
+    navigation.navigate(screen);
+  };
 
   return (
     <>
       <Header section="REQUESTS" isScrolled={false} />
+      <ScrollView contentContainerStyle={styles.container} scrollEventThrottle={16}>
+        <Text style={styles.title}>Your requests</Text>
+        <View style={styles.requestsList}>
+          {requests.length > 0 ? (
+            requests.map((r) => (
+              <Request key={r.field_title} title={r.field_title} body={r.field_body} />
+            ))
+          ) : (
+            <Text style={styles.loadingText}>Loading requests...</Text>
+          )}
+        </View>
+
+        {/* Solo mostrar el botón si hay un usuario autenticado */}
+        {userName && (
+          <TouchableOpacity onPress={() => navigateTo("AddRequest")}>
+            <Text style={styles.addRequestButton}>ADD A REQUEST</Text>
+          </TouchableOpacity>
+        )}
+      </ScrollView>
     </>
-  )
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#fcba03",
+  },
+  requestsList: {
+    alignItems: "center",
+  },
+  loadingText: {
+    fontSize: 18,
+    textAlign: "center",
+    color: "#aaa",
+    marginTop: 20,
+  },
+  addRequestButton: {
+    backgroundColor: "#fcba03",
+    textAlign: "center",
+    fontSize: 20,
+    padding: 5,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: "black",
+    alignSelf: "center",
+    width: "55%",
+    marginTop: 30,
+    fontWeight: "bold",
+  },
+});

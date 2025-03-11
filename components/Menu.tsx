@@ -32,7 +32,6 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
     }).start();
   };
 
-  // Función para cerrar el menú
   const closeMenu = () => {
     setMenuVisible(false);
     Animated.timing(menuAnim, {
@@ -74,22 +73,24 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
         <TouchableOpacity onPress={() => navigateTo("Frameworks")}>
           <Text style={styles.menuText}>FRAMEWORKS</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigateTo("Languages")}>
+        {/* <TouchableOpacity onPress={() => navigateTo("Languages")}>
           <Text style={styles.menuText}>LANGUAGES</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigateTo("Databases")}>
           <Text style={styles.menuText}>DATABASES</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
+        {/* <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
           <Text style={styles.menuText}>ABOUT ME</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigateTo("Requests")}>
           <Text style={styles.menuText}>REQUESTS</Text>
         </TouchableOpacity>
         {userName ? (
           <>
-            <Text style={styles.menuText}>Logged as {userName}</Text>
-            <Button title="Log out" onPress={() => handleLogout(navigation)} />
+            <Text style={styles.menuText}>LOGGED AS {userName}</Text>
+            <TouchableOpacity onPress={() => handleLogout(navigation)}>
+              <Text style={styles.button}>LOG OUT</Text>
+            </TouchableOpacity>
           </>
         ) : (
           <>

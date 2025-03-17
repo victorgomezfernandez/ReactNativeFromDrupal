@@ -1,10 +1,11 @@
+import AboutMe from "@/screens/AboutMe";
+import AddRequest from "@/screens/AddRequest";
+import Databases from "@/screens/Databases";
+import Frameworks from "@/screens/Frameworks";
+import Home from "@/screens/Home";
+import Requests from "@/screens/Requests";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./Home";
-import Frameworks from "./Frameworks";
-import Databases from "./Databases";
-import Requests from "./Requests";
-import AddRequest from "./AddRequest";
-import AboutMe from "./AboutMe";
+
 
 const Stack = createNativeStackNavigator();
 

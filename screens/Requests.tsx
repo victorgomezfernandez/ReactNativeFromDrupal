@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Request from "@/components/Request";
+import { useUser } from "@/hooks/useUser";
 import { getAllRequests } from "@/services/RequestsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "expo-router";
@@ -15,7 +16,7 @@ interface RequestType {
 export default function Requests() {
   const navigation: any = useNavigation();
   const [requests, setRequests] = useState<RequestType[]>([]);
-  const [userName, setUserName] = useState<string | null>(null);
+  const { userName } = useUser();
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -25,13 +26,7 @@ export default function Requests() {
       }
     };
 
-    const fetchUserName = async () => {
-      const storedUser = await AsyncStorage.getItem("user_name");
-      setUserName(storedUser);
-    };
-
     fetchRequests();
-    fetchUserName();
   }, []);
 
   const navigateTo = (screen: string) => {

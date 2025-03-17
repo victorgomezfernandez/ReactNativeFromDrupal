@@ -1,26 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, Button, TextInput, Animated } from 'react-native';
-import Logout from './Logout';
 import { handleLogout } from '@/services/HandleLogout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { handleLogin } from '@/services/HandleLogin';
+import { useUser } from '@/hooks/useUser';
 
 export default function Menu({ isScrolled }: { isScrolled: boolean }) {
   const navigation: any = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
-  const [userName, setUserName] = useState<string | null>(null);
+  const { userName } = useUser();
   const [inputUser, setInputUser] = useState("");
   const [inputPass, setInputPass] = useState("");
   const menuAnim = useState(new Animated.Value(-300))[0];
-
-  useEffect(() => {
-    const getUser = async () => {
-      const storedUser = await AsyncStorage.getItem("user_name");
-      setUserName(storedUser);
-    };
-    getUser();
-  }, []);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);

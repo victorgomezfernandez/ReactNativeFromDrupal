@@ -60,3 +60,35 @@ export async function postRequest({ title, body, requestedBy }: { title: string;
     Alert.alert("Error", error.response?.data?.message || "Instruction failed");
   }
 }
+
+export async function deleteRequest(id: string) {
+  try {
+    const userToken = await AsyncStorage.getItem("csrf_token");
+
+    console.log("CSRF Token:", userToken);
+    console.log(id);
+
+    if (!userToken) {
+      Alert.alert("Error", "Log in again");
+      return;
+    }
+
+    const response = await axios.delete(
+      `http://192.168.2.167/prueba/jsonapi/node/requests/${id}`,
+      {
+        headers: {
+          "X-CSRF-Token": userToken,
+        }
+      }
+    );
+
+    if (response.status === 204) {
+      Alert.alert("Request deleted successfully");
+    } else {
+      Alert.alert("Failed to delete the request", "Try again later");
+    }
+  } catch (error: any) {
+    console.error("Error:", error);
+    Alert.alert("Error", error.response?.data?.message || "Instruction failed");
+  }
+}

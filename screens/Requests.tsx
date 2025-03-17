@@ -11,6 +11,7 @@ interface RequestType {
   field_title: string;
   field_body: string;
   field_requested_by: string;
+  uuid: string;
 }
 
 export default function Requests() {
@@ -41,7 +42,7 @@ export default function Requests() {
         <View style={styles.requestsList}>
           {requests.length > 0 ? (
             requests.map((r) => (
-              <Request key={r.field_title} title={r.field_title} body={r.field_body} requestedBy={r.field_requested_by} />
+              <Request key={r.field_title} title={r.field_title} body={r.field_body} requestedBy={r.field_requested_by} id={r.uuid}/>
             ))
           ) : (
             <Text style={styles.loadingText}>Loading requests...</Text>

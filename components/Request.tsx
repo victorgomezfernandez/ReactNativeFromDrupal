@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Request({ title, body }: { title: string, body: string }) {
+export default function Request({ title, body, requestedBy }: { title: string, body: string, requestedBy: string | null }) {
   return (
     <View style={styles.requestCard}>
       <Text style={styles.requestTitle}>{title}</Text>
       <Text style={styles.requestBody}>{body}</Text>
+      <Text style={styles.requestedBy}>Requested by: {requestedBy}</Text>
     </View>
   );
 }
@@ -32,5 +33,12 @@ const styles = StyleSheet.create({
   requestBody: {
     fontSize: 16,
     color: "#555",
+    marginBottom: 8
   },
+  requestedBy: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 8,
+  }
 });

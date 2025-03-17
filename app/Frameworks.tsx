@@ -32,7 +32,7 @@ export default function Frameworks() {
     <>
       <Header section="FRAMEWORKS" isScrolled={isScrolled} />
       <ScrollView contentContainerStyle={styles.container} onScroll={handleScroll} scrollEventThrottle={16}>
-        <Text style={styles.title}>Frameworks I Use</Text>
+        <Text style={styles.title}>Frameworks I use</Text>
         <View style={styles.frameworksList}>
           {frameworks.length > 0 ? (
             frameworks.map((f) => (

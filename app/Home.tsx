@@ -43,7 +43,7 @@ export default function Home() {
 
         <Text style={styles.sectionTitle}>Projects</Text>
         <Text style={styles.description}>
-          🚀 Check out my latest projects in the Projects section!
+          Send me projects requests in the Requests section!
         </Text>
 
         <Text style={styles.sectionTitle}>Let's Connect</Text>

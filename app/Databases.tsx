@@ -35,7 +35,7 @@ export default function Databases() {
     <>
       <Header section="DATABASES" isScrolled={isScrolled} />
       <ScrollView contentContainerStyle={styles.container} onScroll={handleScroll}>
-        <Text style={styles.title}>List of the Databases Managers I am fluent with</Text>
+        <Text style={styles.title}>Database managers I use</Text>
         {databases.length > 0 ? (
           databases.map((d) => (
             <Database key={d.name} name={d.name} description={d.description} />

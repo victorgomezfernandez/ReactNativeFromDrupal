@@ -9,6 +9,7 @@ import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from "react-nati
 interface RequestType {
   field_title: string;
   field_body: string;
+  field_requested_by: string;
 }
 
 export default function Requests() {
@@ -41,18 +42,17 @@ export default function Requests() {
     <>
       <Header section="REQUESTS" isScrolled={false} />
       <ScrollView contentContainerStyle={styles.container} scrollEventThrottle={16}>
-        <Text style={styles.title}>Your requests</Text>
+        <Text style={styles.title}>Requests sent by users</Text>
         <View style={styles.requestsList}>
           {requests.length > 0 ? (
             requests.map((r) => (
-              <Request key={r.field_title} title={r.field_title} body={r.field_body} />
+              <Request key={r.field_title} title={r.field_title} body={r.field_body} requestedBy={r.field_requested_by} />
             ))
           ) : (
             <Text style={styles.loadingText}>Loading requests...</Text>
           )}
         </View>
 
-        {/* Solo mostrar el botón si hay un usuario autenticado */}
         {userName && (
           <TouchableOpacity onPress={() => navigateTo("AddRequest")}>
             <Text style={styles.addRequestButton}>ADD A REQUEST</Text>

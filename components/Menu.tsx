@@ -79,9 +79,9 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
         <TouchableOpacity onPress={() => navigateTo("Databases")}>
           <Text style={styles.menuText}>DATABASES</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
+        <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
           <Text style={styles.menuText}>ABOUT ME</Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Requests")}>
           <Text style={styles.menuText}>REQUESTS</Text>
         </TouchableOpacity>

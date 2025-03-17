@@ -4,6 +4,7 @@ import Frameworks from "./Frameworks";
 import Databases from "./Databases";
 import Requests from "./Requests";
 import AddRequest from "./AddRequest";
+import AboutMe from "./AboutMe";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export default function StackNavigator() {
       <Stack.Screen name="Frameworks" component={Frameworks}  options={{ headerShown: false }}/>
       <Stack.Screen name="Databases" component={Databases} options={{ headerShown: false }} />
       <Stack.Screen name="Requests" component={Requests} options={{ headerShown: false }} />
+      <Stack.Screen name="AboutMe" component={AboutMe} options={{ headerShown: false }} />
       <Stack.Screen name="AddRequest" component={AddRequest} options={{ headerShown: false }} />
     </Stack.Navigator>
   );

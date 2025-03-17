@@ -1,22 +1,39 @@
 import Header from "@/components/Header";
 import { postRequest } from "@/services/RequestsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function AddRequest() {
   const [requestTitle, setRequestTitle] = useState("");
   const [requestBody, setRequestBody] = useState("");
+  const [requestedBy, setRequestedBy] = useState <string | null> ("");
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      const storedUser = await AsyncStorage.getItem("user_name");
+      setRequestedBy(storedUser);
+    }
+
+    fetchUserName();
+  }, []);
 
   const handleSubmit = async () => {
+
     if (!requestTitle.trim() || !requestBody.trim()) {
       Alert.alert("Error", "Title and body cannot be empty.");
       return;
     }
 
-    await postRequest({ title: requestTitle, body: requestBody });
+    if (requestedBy == null) {
+      Alert.alert("Error", "You must be logged in.");
+      return;
+    }
+
+    await postRequest({ title: requestTitle, body: requestBody, requestedBy: requestedBy });
 
     setRequestTitle("");
+    setRequestBody("");
     setRequestBody("");
   };
 

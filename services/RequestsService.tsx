@@ -22,12 +22,11 @@ export async function getAllRequests() {
   }
 }
 
-export async function postRequest({ title, body }: { title: string; body: string }) {
+export async function postRequest({ title, body, requestedBy }: { title: string; body: string, requestedBy: string | null }) {
   try {
-    // Obtener el token de AsyncStorage de forma síncrona
     const userToken = await AsyncStorage.getItem("csrf_token");
 
-    console.log("CSRF Token:", userToken); // Verificar si el token se obtiene correctamente
+    console.log("CSRF Token:", userToken); 
 
     if (!userToken) {
       Alert.alert("Error", "Log in again");
@@ -39,7 +38,7 @@ export async function postRequest({ title, body }: { title: string; body: string
       headers: {
         "Content-Type": "application/vnd.api+json",
         "Accept": "application/vnd.api+json",
-        "X-CSRF-Token": userToken, // Ahora el token se usa correctamente
+        "X-CSRF-Token": userToken, 
       },
       body: JSON.stringify({
         data: {
@@ -48,6 +47,7 @@ export async function postRequest({ title, body }: { title: string; body: string
             title: title,
             field_title: title,
             field_body: body,
+            field_requested_by: requestedBy,
           },
         },
       }),

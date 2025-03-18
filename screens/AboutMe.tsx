@@ -1,10 +1,11 @@
 import Header from "@/components/Header";
-import { ScrollView, View } from "react-native";
+import { ScrollView, StatusBar, View } from "react-native";
 import { Linking, StyleSheet, Text } from "react-native";
 
 export default function AboutMe() {
   return (
     <>
+      <StatusBar backgroundColor="#1e1e1e" />
       <Header section="ABOUT ME" />
       <ScrollView style={styles.container} >
         <View style={styles.aboutContainer}>

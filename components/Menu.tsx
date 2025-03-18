@@ -121,8 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 15,
     borderBottomRightRadius: 12,
-    borderBottomColor: "#fcba03",
-    borderRightColor: "#fcba03",
+    borderColor: "#1e1e1e",
     borderWidth: 1
   },
   burgerIcon: {

@@ -3,12 +3,12 @@ import { postRequest } from "@/services/RequestsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { Alert,  ScrollView,  StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function AddRequest() {
   const [requestTitle, setRequestTitle] = useState("");
   const [requestBody, setRequestBody] = useState("");
-  const [requestedBy, setRequestedBy] = useState <string | null> ("");
+  const [requestedBy, setRequestedBy] = useState<string | null>("");
   const navigation: any = useNavigation();
 
   useEffect(() => {
@@ -44,6 +44,7 @@ export default function AddRequest() {
 
   return (
     <>
+      <StatusBar backgroundColor="#1e1e1e" />
       <Header section="ADD REQUEST" />
       <ScrollView style={styles.container}>
         <Text style={styles.title}>Create a New Request</Text>
@@ -77,7 +78,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 15,
     flexGrow: 1,
-    justifyContent: "center",
   },
   title: {
     fontSize: 24,

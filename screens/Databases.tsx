@@ -2,7 +2,7 @@ import Database from "@/components/Database";
 import Header from "@/components/Header";
 import { getAllDatabases } from "@/services/DatabasesService";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 
 interface DatabaseType {
   name: string;
@@ -28,6 +28,7 @@ export default function Databases() {
 
   return (
     <>
+      <StatusBar backgroundColor="#1e1e1e" />
       <Header section="DATABASES" />
       <ScrollView style={styles.container} >
         <Text style={styles.title}>Database managers that I use</Text>

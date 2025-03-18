@@ -4,7 +4,7 @@ import { useUser } from "@/hooks/useUser";
 import { getAllRequests } from "@/services/RequestsService";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View,  StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, StatusBar } from "react-native";
 
 interface RequestType {
   field_title: string;
@@ -35,6 +35,7 @@ export default function Requests() {
 
   return (
     <>
+      <StatusBar backgroundColor="#1e1e1e" />
       <Header section="REQUESTS" />
       <ScrollView style={styles.container} >
         <Text style={styles.title}>Requests sent by users</Text>

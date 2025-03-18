@@ -1,4 +1,4 @@
-import { View, Text,  StyleSheet, FlatList, ScrollView } from "react-native";
+import { View, Text,  StyleSheet, ScrollView, StatusBar } from "react-native";
 import Header from "@/components/Header";
 import { useNavigation } from "expo-router";
 import { useState } from "react";
@@ -17,6 +17,7 @@ export default function Home() {
 
   return (
     <>
+    <StatusBar backgroundColor="#1e1e1e" />
       <Header section="HOME" />
       <ScrollView style={styles.container}>
         <Text style={styles.title}>Welcome to My Portfolio</Text>

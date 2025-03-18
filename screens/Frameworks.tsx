@@ -24,10 +24,6 @@ export default function Frameworks() {
     fetchFrameworks();
   }, []);
 
-  const handleScroll = (event: any) => {
-    setIsScrolled(event.nativeEvent.contentOffset.y > 50);
-  };
-
   return (
     <>
       <Header section="FRAMEWORKS" />

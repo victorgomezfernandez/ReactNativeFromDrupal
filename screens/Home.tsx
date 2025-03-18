@@ -7,10 +7,6 @@ export default function Home() {
   const navigation = useNavigation();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleScroll = (event: any) => {
-    setIsScrolled(event.nativeEvent.contentOffset.y > 50);
-  };
-
   const skills = [
     "Cross-Platform Development: React Native",
     "Web Development: React.js, TypeScript",

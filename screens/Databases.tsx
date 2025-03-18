@@ -2,7 +2,7 @@ import Database from "@/components/Database";
 import Header from "@/components/Header";
 import { getAllDatabases } from "@/services/DatabasesService";
 import { useEffect, useState } from "react";
-import {  ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 interface DatabaseType {
   name: string;
@@ -25,11 +25,6 @@ export default function Databases() {
 
     fetchDatabases();
   }, []);
-
-
-  const handleScroll = (event: any) => {
-    setIsScrolled(event.nativeEvent.contentOffset.y > 50);
-  };
 
   return (
     <>

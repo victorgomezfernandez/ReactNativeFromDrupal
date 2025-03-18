@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, Animated } from 'react-native';
+import { Text, StyleSheet, Image, TouchableOpacity, TextInput, Animated } from 'react-native';
 import { handleLogout } from '@/services/HandleLogout';
 import { handleLogin } from '@/services/HandleLogin';
 import { useUser } from '@/hooks/useUser';
@@ -18,7 +18,7 @@ export default function Menu() {
 
     Animated.timing(menuAnim, {
       toValue: menuVisible ? -300 : 0,
-      duration: 300,
+      duration: 250,
       useNativeDriver: true,
     }).start();
   };
@@ -27,7 +27,7 @@ export default function Menu() {
     setMenuVisible(false);
     Animated.timing(menuAnim, {
       toValue: -300,
-      duration: 300,
+      duration: 250,
       useNativeDriver: true,
     }).start();
   };
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginLeft: 5,
     marginTop: 5,
-    cursor: 'pointer',
   },
   xIcon: {
     width: 40,

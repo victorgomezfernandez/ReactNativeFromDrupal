@@ -64,9 +64,6 @@ export default function Menu() {
         <TouchableOpacity onPress={() => navigateTo("Frameworks")}>
           <Text style={styles.menuText}>FRAMEWORKS</Text>
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={() => navigateTo("Languages")}>
-          <Text style={styles.menuText}>LANGUAGES</Text>
-        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigateTo("Databases")}>
           <Text style={styles.menuText}>DATABASES</Text>
         </TouchableOpacity>

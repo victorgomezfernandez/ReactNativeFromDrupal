@@ -2,7 +2,7 @@ import Database from "@/components/Database";
 import Header from "@/components/Header";
 import { getAllDatabases } from "@/services/DatabasesService";
 import { useEffect, useState } from "react";
-import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 
 interface DatabaseType {
   name: string;
@@ -11,7 +11,12 @@ interface DatabaseType {
 }
 
 export default function Databases() {
-  const [databases, setDatabases] = useState<DatabaseType[]>([]);
+  const [databases, setDatabases] = useState<DatabaseType[]>([]); 
+  const [menuOpened, setMenuOpened] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpened(false);
+  }
 
   useEffect(() => {
 
@@ -28,17 +33,22 @@ export default function Databases() {
   return (
     <>
       <StatusBar backgroundColor="#1e1e1e" />
-      <Header section="DATABASES" />
+      <Header section="DATABASES" menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
       <ScrollView style={styles.container} >
-        <Text style={styles.title}>Database managers that I use</Text>
-        {databases.length > 0 ? (
-          databases.map((d) => (
-            <Database key={d.name} name={d.name} description={d.description} />
-          ))
-        ) : (
-          <Text style={styles.loadingText}>Loading databases</Text>
-        )}
+        <TouchableWithoutFeedback onPress={() => closeMenu()}>
+          <View>
+            <Text style={styles.title}>Database managers that I use</Text>
+            {databases.length > 0 ? (
+              databases.map((d) => (
+                <Database key={d.name} name={d.name} description={d.description} />
+              ))
+            ) : (
+              <Text style={styles.loadingText}>Loading databases</Text>
+            )}
+          </View>
+        </TouchableWithoutFeedback>
       </ScrollView>
+
     </>
   );
 }

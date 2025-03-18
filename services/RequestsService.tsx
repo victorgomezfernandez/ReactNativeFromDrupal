@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { useNavigation } from "expo-router";
 import { Alert } from "react-native";
 
 export async function getAllRequests() {
@@ -66,7 +65,7 @@ export async function deleteRequest(id: string, navigation: any) {
     const storedRoles = await AsyncStorage.getItem("user_roles");
 
     if (!userToken) {
-      Alert.alert("Error", "You must be logged in.");
+      Alert.alert("Permission denied", "You must be logged in");
       return;
     }
 
@@ -77,14 +76,12 @@ export async function deleteRequest(id: string, navigation: any) {
 
     const rolesArray = JSON.parse(storedRoles);
 
-    // Verificar si el usuario tiene los permisos necesarios
     const hasPermission = rolesArray.includes("administrator") || rolesArray.includes("content_editor");
 
     if (!hasPermission) {
       Alert.alert("Permission Denied", "You do not have the required permissions to delete this request.");
       return;
     }
-
 
     const response = await axios.delete(
       `http://192.168.2.167/prueba/jsonapi/node/requests/${id}`,

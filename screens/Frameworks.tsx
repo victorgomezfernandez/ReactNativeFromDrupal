@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, StatusBar } from "react-native";
+import { ScrollView, StyleSheet, Text, View, StatusBar, TouchableWithoutFeedback } from "react-native";
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Framework from "@/components/Framework";
@@ -11,6 +11,11 @@ interface FrameworkType {
 
 export default function Frameworks() {
   const [frameworks, setFrameworks] = useState<FrameworkType[]>([]);
+  const [menuOpened, setMenuOpened] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpened(false);
+  }
 
   useEffect(() => {
     const fetchFrameworks = async () => {
@@ -26,18 +31,21 @@ export default function Frameworks() {
   return (
     <>
       <StatusBar backgroundColor="#1e1e1e" />
-      <Header section="FRAMEWORKS" />
-      <ScrollView style={styles.container}>
-        <Text style={styles.title}>Frameworks that I use</Text>
-        <View style={styles.frameworksList}>
-          {frameworks.length > 0 ? (
-            frameworks.map((f) => (
-              <Framework key={f.name} name={f.name} description={f.description} />
-            ))
-          ) : (
-            <Text style={styles.loadingText}>Loading frameworks...</Text>
-          )}
+      <Header section="FRAMEWORKS" menuOpened={menuOpened} setMenuOpened={setMenuOpened} />
+      <ScrollView style={styles.container}><TouchableWithoutFeedback onPress={() => closeMenu()}>
+        <View>
+          <Text style={styles.title}>Frameworks that I use</Text>
+          <View style={styles.frameworksList}>
+            {frameworks.length > 0 ? (
+              frameworks.map((f) => (
+                <Framework key={f.name} name={f.name} description={f.description} />
+              ))
+            ) : (
+              <Text style={styles.loadingText}>Loading frameworks...</Text>
+            )}
+          </View>
         </View>
+      </TouchableWithoutFeedback>
       </ScrollView>
     </>
   );

@@ -1,4 +1,4 @@
-import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { deleteRequest } from "@/services/RequestsService";
 import { useNavigation } from "@react-navigation/native";
@@ -24,10 +24,10 @@ export default function Request({
   };
 
   return (
-    <TouchableOpacity
-      style={styles.requestCard}
-      onLongPress={() => setShowModal(true)}
-    >
+    <View style={styles.requestCard}>
+      <TouchableOpacity style={styles.deleteContainer} onPress={() => setShowModal(true)}>
+        <Image style={styles.deleteImg} source={require("../assets/images/icons/delete.png")} />
+      </TouchableOpacity>
       <Text style={styles.requestTitle}>{title}</Text>
       <Text style={styles.requestBody}>{body}</Text>
       <Text style={styles.requestedBy}>Requested by: {requestedBy}</Text>
@@ -57,7 +57,7 @@ export default function Request({
           </View>
         </View>
       </Modal>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -74,6 +74,16 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderWidth: 1,
     borderColor: "#ddd",
+  },
+  deleteContainer: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    zIndex: 1
+  },
+  deleteImg: {
+    width: 40,
+    height: 40, 
   },
   requestTitle: {
     fontSize: 20,

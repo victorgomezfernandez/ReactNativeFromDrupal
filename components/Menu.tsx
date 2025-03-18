@@ -1,36 +1,28 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity, TextInput, Animated } from 'react-native';
 import { handleLogout } from '@/services/HandleLogout';
 import { handleLogin } from '@/services/HandleLogin';
 import { useUser } from '@/hooks/useUser';
 
-export default function Menu() {
+export default function Menu({ menuOpened, setMenuOpened }: {menuOpened: boolean; setMenuOpened: (value: boolean) => void;}) {
   const navigation: any = useNavigation();
-  const [menuVisible, setMenuVisible] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(menuOpened);
   const { userName } = useUser();
   const [inputUser, setInputUser] = useState("");
   const [inputPass, setInputPass] = useState("");
   const menuAnim = useState(new Animated.Value(-300))[0];
 
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-
+  useEffect(() => {
     Animated.timing(menuAnim, {
-      toValue: menuVisible ? -300 : 0,
+      toValue: menuOpened ? 0 : -300,
       duration: 250,
       useNativeDriver: true,
     }).start();
-  };
+  }, [menuOpened]);
 
-  const closeMenu = () => {
-    setMenuVisible(false);
-    Animated.timing(menuAnim, {
-      toValue: -300,
-      duration: 250,
-      useNativeDriver: true,
-    }).start();
-  };
+  const toggleMenu = () => setMenuOpened(!menuOpened);
+  const closeMenu = () => setMenuOpened(false);
 
   const navigateTo = (screen: string) => {
     navigation.navigate(screen);
@@ -69,6 +61,9 @@ export default function Menu() {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Requests")}>
           <Text style={styles.menuText}>REQUESTS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigateTo("Projects")}>
+          <Text style={styles.menuText}>PROJECTS</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
           <Text style={styles.menuText}>ABOUT ME</Text>

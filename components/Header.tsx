@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import Menu from "./Menu";
 
-export default function Header({ section }: { section: string; }) {
+export default function Header({ section, menuOpened, setMenuOpened }: { section: string; menuOpened: boolean; setMenuOpened: (value: boolean) => void;}) {
   return (
     <View style={styles.headerContent}>
-      <Menu/>
+      <Menu menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
       <Text style={styles.headerText}>{section}</Text>
     </View>
   );

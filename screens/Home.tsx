@@ -1,7 +1,5 @@
-import { View, Text, ScrollView, StyleSheet, FlatList } from "react-native";
+import { View, Text,  StyleSheet, FlatList, ScrollView } from "react-native";
 import Header from "@/components/Header";
-import Menu from "@/components/Menu";
-import Login from "@/components/Login";
 import { useNavigation } from "expo-router";
 import { useState } from "react";
 
@@ -23,8 +21,8 @@ export default function Home() {
 
   return (
     <>
-      <Header section="HOME" isScrolled={isScrolled} />
-      <ScrollView contentContainerStyle={styles.container} onScroll={handleScroll} scrollEventThrottle={16}>
+      <Header section="HOME" />
+      <ScrollView style={styles.container}>
         <Text style={styles.title}>Welcome to My Portfolio</Text>
         <Text style={styles.subtitle}>Full-Stack & Cross-Platform Developer, IT Technician</Text>
 
@@ -38,8 +36,6 @@ export default function Home() {
             <Text key={index} style={styles.listItem}>🔹 {skill}</Text>
           ))}
         </View>
-
-
 
         <Text style={styles.sectionTitle}>Projects</Text>
         <Text style={styles.description}>

@@ -11,8 +11,6 @@ export async function handleLogout(navigation: any) {
       return;
     }
 
-    console.log("Logout Token:", token);
-
     const response = await axios.post(
       `http://192.168.2.167/prueba/user/logout?_format=json&token=${token}`,
       {},
@@ -27,7 +25,6 @@ export async function handleLogout(navigation: any) {
       Alert.alert("Logout Failed");
     }
   } catch (error: any) {
-    console.error("Logout Error:", error);
     Alert.alert("Error", error.response?.data?.message || "Network request failed.");
   }
 }

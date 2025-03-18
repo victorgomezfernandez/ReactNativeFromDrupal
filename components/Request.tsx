@@ -19,7 +19,7 @@ export default function Request({
   const navigation: any = useNavigation();
 
   const handleDelete = () => {
-    deleteRequest(id);
+    deleteRequest(id, navigation);
     setShowModal(false);
   };
 
@@ -39,7 +39,7 @@ export default function Request({
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Are you sure you want to delete this request?</Text>
+            <Text style={styles.modalTitle}>Do you want to delete this request?</Text>
             <View style={styles.modalActions}>
               <TouchableOpacity
                 style={styles.cancelButton}

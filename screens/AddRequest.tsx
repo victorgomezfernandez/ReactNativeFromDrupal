@@ -1,13 +1,15 @@
 import Header from "@/components/Header";
 import { postRequest } from "@/services/RequestsService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert,  ScrollView,  StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function AddRequest() {
   const [requestTitle, setRequestTitle] = useState("");
   const [requestBody, setRequestBody] = useState("");
   const [requestedBy, setRequestedBy] = useState <string | null> ("");
+  const navigation: any = useNavigation();
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -25,6 +27,11 @@ export default function AddRequest() {
       return;
     }
 
+    if (requestTitle.length > 30) {
+      Alert.alert("Title too long", "Try something shorter");
+      return;
+    }
+
     if (requestedBy == null) {
       Alert.alert("Error", "You must be logged in.");
       return;
@@ -32,15 +39,13 @@ export default function AddRequest() {
 
     await postRequest({ title: requestTitle, body: requestBody, requestedBy: requestedBy });
 
-    setRequestTitle("");
-    setRequestBody("");
-    setRequestBody("");
+    navigation.navigate("Requests");
   };
 
   return (
     <>
-      <Header section="ADD REQUEST" isScrolled={false} />
-      <ScrollView contentContainerStyle={styles.container} scrollEventThrottle={16}>
+      <Header section="ADD REQUEST" />
+      <ScrollView style={styles.container}>
         <Text style={styles.title}>Create a New Request</Text>
         <View style={styles.form}>
           <TextInput

@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useNavigation } from "expo-router";
 import { Alert } from "react-native";
 
 export async function getAllRequests() {
@@ -20,8 +21,6 @@ export async function getAllRequests() {
 export async function postRequest({ title, body, requestedBy }: { title: string; body: string; requestedBy: string | null }) {
   try {
     const userToken = await AsyncStorage.getItem("csrf_token");
-
-    console.log("CSRF Token:", userToken);
 
     if (!userToken) {
       Alert.alert("Error", "Log in again");
@@ -61,17 +60,31 @@ export async function postRequest({ title, body, requestedBy }: { title: string;
   }
 }
 
-export async function deleteRequest(id: string) {
+export async function deleteRequest(id: string, navigation: any) {
   try {
     const userToken = await AsyncStorage.getItem("csrf_token");
-
-    console.log("CSRF Token:", userToken);
-    console.log(id);
+    const storedRoles = await AsyncStorage.getItem("user_roles");
 
     if (!userToken) {
-      Alert.alert("Error", "Log in again");
+      Alert.alert("Error", "You must be logged in.");
       return;
     }
+
+    if (!storedRoles) {
+      Alert.alert("Error", "User roles not found. Log in again.");
+      return;
+    }
+
+    const rolesArray = JSON.parse(storedRoles);
+
+    // Verificar si el usuario tiene los permisos necesarios
+    const hasPermission = rolesArray.includes("administrator") || rolesArray.includes("content_editor");
+
+    if (!hasPermission) {
+      Alert.alert("Permission Denied", "You do not have the required permissions to delete this request.");
+      return;
+    }
+
 
     const response = await axios.delete(
       `http://192.168.2.167/prueba/jsonapi/node/requests/${id}`,
@@ -84,6 +97,8 @@ export async function deleteRequest(id: string) {
 
     if (response.status === 204) {
       Alert.alert("Request deleted successfully");
+      navigation.replace(navigation.getState().routes[navigation.getState().index].name);
+
     } else {
       Alert.alert("Failed to delete the request", "Try again later");
     }

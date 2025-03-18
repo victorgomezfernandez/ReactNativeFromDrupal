@@ -2,7 +2,7 @@ import Database from "@/components/Database";
 import Header from "@/components/Header";
 import { getAllDatabases } from "@/services/DatabasesService";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import {  ScrollView, StyleSheet, Text, View } from "react-native";
 
 interface DatabaseType {
   name: string;
@@ -33,9 +33,9 @@ export default function Databases() {
 
   return (
     <>
-      <Header section="DATABASES" isScrolled={isScrolled} />
-      <ScrollView contentContainerStyle={styles.container} onScroll={handleScroll}>
-        <Text style={styles.title}>Database managers I use</Text>
+      <Header section="DATABASES" />
+      <ScrollView style={styles.container} >
+        <Text style={styles.title}>Database managers that I use</Text>
         {databases.length > 0 ? (
           databases.map((d) => (
             <Database key={d.name} name={d.name} description={d.description} />

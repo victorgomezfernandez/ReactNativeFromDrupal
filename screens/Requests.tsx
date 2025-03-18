@@ -2,10 +2,9 @@ import Header from "@/components/Header";
 import Request from "@/components/Request";
 import { useUser } from "@/hooks/useUser";
 import { getAllRequests } from "@/services/RequestsService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View,  StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 
 interface RequestType {
   field_title: string;
@@ -36,13 +35,13 @@ export default function Requests() {
 
   return (
     <>
-      <Header section="REQUESTS" isScrolled={false} />
-      <ScrollView contentContainerStyle={styles.container} scrollEventThrottle={16}>
+      <Header section="REQUESTS" />
+      <ScrollView style={styles.container} >
         <Text style={styles.title}>Requests sent by users</Text>
         <View style={styles.requestsList}>
           {requests.length > 0 ? (
             requests.map((r) => (
-              <Request key={r.field_title} title={r.field_title} body={r.field_body} requestedBy={r.field_requested_by} id={r.uuid}/>
+              <Request key={r.field_title} title={r.field_title} body={r.field_body} requestedBy={r.field_requested_by} id={r.uuid} />
             ))
           ) : (
             <Text style={styles.loadingText}>Loading requests...</Text>

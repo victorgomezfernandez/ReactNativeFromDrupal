@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, Button, TextInput, Animated } from 'react-native';
+import { useState } from 'react';
+import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, Animated } from 'react-native';
 import { handleLogout } from '@/services/HandleLogout';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { handleLogin } from '@/services/HandleLogin';
 import { useUser } from '@/hooks/useUser';
 
-export default function Menu({ isScrolled }: { isScrolled: boolean }) {
+export default function Menu() {
   const navigation: any = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const { userName } = useUser();
@@ -18,7 +17,7 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
     setMenuVisible(!menuVisible);
 
     Animated.timing(menuAnim, {
-      toValue: menuVisible ? -300 : 0, 
+      toValue: menuVisible ? -300 : 0,
       duration: 300,
       useNativeDriver: true,
     }).start();
@@ -71,11 +70,11 @@ export default function Menu({ isScrolled }: { isScrolled: boolean }) {
         <TouchableOpacity onPress={() => navigateTo("Databases")}>
           <Text style={styles.menuText}>DATABASES</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
-          <Text style={styles.menuText}>ABOUT ME</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigateTo("Requests")}>
           <Text style={styles.menuText}>REQUESTS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigateTo("AboutMe")}>
+          <Text style={styles.menuText}>ABOUT ME</Text>
         </TouchableOpacity>
         {userName ? (
           <>

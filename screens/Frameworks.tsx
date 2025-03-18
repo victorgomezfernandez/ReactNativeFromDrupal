@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {  ScrollView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Framework from "@/components/Framework";
@@ -30,9 +30,9 @@ export default function Frameworks() {
 
   return (
     <>
-      <Header section="FRAMEWORKS" isScrolled={isScrolled} />
-      <ScrollView contentContainerStyle={styles.container} onScroll={handleScroll} scrollEventThrottle={16}>
-        <Text style={styles.title}>Frameworks I use</Text>
+      <Header section="FRAMEWORKS" />
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Frameworks that I use</Text>
         <View style={styles.frameworksList}>
           {frameworks.length > 0 ? (
             frameworks.map((f) => (

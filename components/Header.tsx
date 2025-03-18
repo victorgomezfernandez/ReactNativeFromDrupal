@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import Menu from "./Menu";
 
-export default function Header({ section, isScrolled }: { section: string; isScrolled: boolean }) {
+export default function Header({ section }: { section: string; }) {
   return (
     <View style={styles.headerContent}>
-      <Menu isScrolled={isScrolled} />
+      <Menu/>
       <Text style={styles.headerText}>{section}</Text>
     </View>
   );

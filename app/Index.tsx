@@ -11,13 +11,16 @@ const Stack = createNativeStackNavigator();
 
 export default function StackNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name="Frameworks" component={Frameworks}  options={{ headerShown: false }}/>
-      <Stack.Screen name="Databases" component={Databases} options={{ headerShown: false }} />
-      <Stack.Screen name="Requests" component={Requests} options={{ headerShown: false }} />
-      <Stack.Screen name="AboutMe" component={AboutMe} options={{ headerShown: false }} />
-      <Stack.Screen name="AddRequest" component={AddRequest} options={{ headerShown: false }} />
+    <Stack.Navigator initialRouteName="Home" screenOptions={{
+      navigationBarColor: "#f2f2f2",
+      headerShown: false,
+    }}>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Frameworks" component={Frameworks}/>
+      <Stack.Screen name="Databases" component={Databases}/>
+      <Stack.Screen name="Requests" component={Requests}/>
+      <Stack.Screen name="AboutMe" component={AboutMe}/>
+      <Stack.Screen name="AddRequest" component={AddRequest}/>
     </Stack.Navigator>
   );
 }

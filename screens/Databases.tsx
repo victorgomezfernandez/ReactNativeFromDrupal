@@ -11,7 +11,6 @@ interface DatabaseType {
 }
 
 export default function Databases() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [databases, setDatabases] = useState<DatabaseType[]>([]);
 
   useEffect(() => {

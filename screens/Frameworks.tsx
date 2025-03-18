@@ -10,7 +10,6 @@ interface FrameworkType {
 }
 
 export default function Frameworks() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [frameworks, setFrameworks] = useState<FrameworkType[]>([]);
 
   useEffect(() => {

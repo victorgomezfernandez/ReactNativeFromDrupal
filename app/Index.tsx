@@ -3,6 +3,8 @@ import AddRequest from "@/screens/AddRequest";
 import Databases from "@/screens/Databases";
 import Frameworks from "@/screens/Frameworks";
 import Home from "@/screens/Home";
+import LogInScreen from "@/screens/LogInScreen";
+import LogIn from "@/screens/LogInScreen";
 import Projects from "@/screens/Projects";
 import Requests from "@/screens/Requests";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -24,6 +26,7 @@ export default function StackNavigator() {
       <Stack.Screen name="AboutMe" component={AboutMe}/>
       <Stack.Screen name="AddRequest" component={AddRequest}/>
       <Stack.Screen name="Projects" component={Projects} />
+      <Stack.Screen name="LogIn" component={LogInScreen} />
     </Stack.Navigator>
   );
 }

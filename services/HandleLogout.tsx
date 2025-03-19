@@ -1,6 +1,7 @@
+import { API_URL } from "@/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { Alert } from "react-native";
+import { Alert, ToastAndroid } from "react-native";
 
 export async function handleLogout(navigation: any) {
   try {
@@ -12,15 +13,19 @@ export async function handleLogout(navigation: any) {
     }
 
     const response = await axios.post(
-      `http://192.168.2.167/prueba/user/logout?_format=json&token=${token}`,
+      `${API_URL}/prueba/user/logout?_format=json&token=${token}`,
       {},
       { withCredentials: true }
     );
 
     if (response.status === 204) {
-      Alert.alert("Logout Successful");
       await AsyncStorage.clear();
       navigation.replace(navigation.getState().routes[navigation.getState().index].name);
+      ToastAndroid.showWithGravity(
+        `Logout Successful`,
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP
+      );
     } else {
       Alert.alert("Logout Failed");
     }

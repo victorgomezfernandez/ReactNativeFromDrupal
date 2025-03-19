@@ -30,7 +30,7 @@ export default function Frameworks() {
 
   return (
     <>
-      <StatusBar backgroundColor="#1e1e1e" />
+      <StatusBar backgroundColor="#1e1e1e" barStyle={"light-content"}/>
       <Header section="FRAMEWORKS" menuOpened={menuOpened} setMenuOpened={setMenuOpened} />
       <ScrollView style={styles.container}><TouchableWithoutFeedback onPress={() => closeMenu()}>
         <View>

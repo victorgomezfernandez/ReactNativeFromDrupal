@@ -10,6 +10,11 @@ export default function AddRequest() {
   const [requestBody, setRequestBody] = useState("");
   const [requestedBy, setRequestedBy] = useState<string | null>("");
   const navigation: any = useNavigation();
+  const [menuOpened, setMenuOpened] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpened(false);
+  }
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -44,8 +49,8 @@ export default function AddRequest() {
 
   return (
     <>
-      <StatusBar backgroundColor="#1e1e1e" />
-      <Header section="ADD REQUEST" />
+      <StatusBar backgroundColor="#1e1e1e" barStyle={"light-content"}/>
+      <Header section="ADD REQUEST" menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
       <ScrollView style={styles.container}>
         <Text style={styles.title}>Create a New Request</Text>
         <View style={styles.form}>

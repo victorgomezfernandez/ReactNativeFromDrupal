@@ -1,9 +1,10 @@
+import { API_URL } from "@/config";
 import axios from "axios";
 import { Alert } from "react-native";
 
 export async function getAllProjects() {
   try {
-    const response = await axios.get("http://192.168.2.167/prueba/api/projects");
+    const response = await axios.get(`${API_URL}/prueba/api/projects`);
 
     if (response.status === 200) {
       return response.data;

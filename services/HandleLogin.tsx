@@ -1,6 +1,7 @@
-import { Alert } from "react-native";
+import { Alert, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { API_URL } from "@/config";
 
 export async function handleLogin(userName: string, userPass: string, navigation: any) {
   if (!userName || !userPass) {
@@ -10,14 +11,14 @@ export async function handleLogin(userName: string, userPass: string, navigation
 
   try {
     const response = await axios.post(
-      "http://192.168.2.167/prueba/user/login?_format=json",
+      `${API_URL}/prueba/user/login?_format=json`,
       { name: userName, pass: userPass },
       {
         headers: {
           "Content-Type": "application/json",
           "Set-Cookie": "SameSite=None",
         },
-        withCredentials: true, 
+        withCredentials: true,
       }
     );
 
@@ -27,21 +28,27 @@ export async function handleLogin(userName: string, userPass: string, navigation
       const user = data.current_user?.name || "Unknown User";
       const roles = data.current_user?.roles || [];
 
-      Alert.alert("Login Successful", `Welcome, ${user}!`);
-
       await AsyncStorage.multiSet([
         ["logout_token", data.logout_token],
         ["user_name", user],
         ["csrf_token", data.csrf_token],
         ["user_roles", JSON.stringify(roles)],
       ]);
-      
-      navigation.replace(navigation.getState().routes[navigation.getState().index].name);
+
+      navigation.navigate("Home");
+
+      ToastAndroid.show(
+        `Login Successful, Welcome ${user}`,
+        ToastAndroid.TOP,
+      );
     } else {
       Alert.alert("Login Failed", data.message || "Invalid credentials");
     }
   } catch (error: any) {
     console.error(error);
-    Alert.alert("Error", error.response?.data?.message || "Network request failed.");
+    ToastAndroid.show(
+      error.response?.data?.message,
+      ToastAndroid.TOP,
+    );
   }
 }

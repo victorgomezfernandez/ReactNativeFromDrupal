@@ -1,9 +1,10 @@
 import { Alert } from "react-native";
 import axios from "axios";
+import { API_URL } from "@/config";
 
 export async function getAllFrameworks() {
   try {
-    const response = await axios.get("http://192.168.2.167/prueba/api/frameworks");
+    const response = await axios.get(`${API_URL}/prueba/api/frameworks`);
     return response.data;
   } catch (error: any) {
     console.error("Error fetching frameworks:", error);

@@ -5,7 +5,7 @@ import { handleLogout } from '@/services/HandleLogout';
 import { handleLogin } from '@/services/HandleLogin';
 import { useUser } from '@/hooks/useUser';
 
-export default function Menu({ menuOpened, setMenuOpened }: {menuOpened: boolean; setMenuOpened: (value: boolean) => void;}) {
+export default function Menu({ menuOpened, setMenuOpened }: { menuOpened: boolean; setMenuOpened: (value: boolean) => void; }) {
   const navigation: any = useNavigation();
   const [menuVisible, setMenuVisible] = useState(menuOpened);
   const { userName } = useUser();
@@ -77,22 +77,7 @@ export default function Menu({ menuOpened, setMenuOpened }: {menuOpened: boolean
           </>
         ) : (
           <>
-            <TextInput
-              style={styles.input}
-              placeholder="Username"
-              placeholderTextColor="gray"
-              value={inputUser}
-              onChangeText={setInputUser}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="gray"
-              secureTextEntry
-              value={inputPass}
-              onChangeText={setInputPass}
-            />
-            <TouchableOpacity onPress={() => handleLogin(inputUser, inputPass, navigation)}>
+            <TouchableOpacity onPress={() => navigateTo("LogIn")}>
               <Text style={styles.button}>LOG IN</Text>
             </TouchableOpacity>
           </>

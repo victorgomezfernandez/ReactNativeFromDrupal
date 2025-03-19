@@ -1,10 +1,11 @@
+import { API_URL } from "@/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Alert } from "react-native";
 
 export async function getAllRequests() {
   try {
-    const response = await axios.get("http://192.168.2.167/prueba/api/requests");
+    const response = await axios.get(`${API_URL}/prueba/api/requests`);
 
     if (response.status === 200) {
       return response.data;
@@ -27,7 +28,7 @@ export async function postRequest({ title, body, requestedBy }: { title: string;
     }
 
     const response = await axios.post(
-      "http://192.168.2.167/prueba/jsonapi/node/requests",
+      `${API_URL}/prueba/jsonapi/node/requests`,
       {
         data: {
           type: "node--requests",
@@ -84,7 +85,7 @@ export async function deleteRequest(id: string, navigation: any) {
     }
 
     const response = await axios.delete(
-      `http://192.168.2.167/prueba/jsonapi/node/requests/${id}`,
+      `${API_URL}/prueba/jsonapi/node/requests/${id}`,
       {
         headers: {
           "X-CSRF-Token": userToken,

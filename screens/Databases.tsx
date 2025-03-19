@@ -6,7 +6,6 @@ import { ScrollView, StatusBar, StyleSheet, Text, TouchableWithoutFeedback, View
 
 interface DatabaseType {
   name: string;
-  img: string;
   description: string;
 }
 
@@ -32,7 +31,7 @@ export default function Databases() {
 
   return (
     <>
-      <StatusBar backgroundColor="#1e1e1e" />
+      <StatusBar backgroundColor="#1e1e1e" barStyle={"light-content"}/>
       <Header section="DATABASES" menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
       <ScrollView style={styles.container} >
         <TouchableWithoutFeedback onPress={() => closeMenu()}>
